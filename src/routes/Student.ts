@@ -26,4 +26,17 @@ router.post('/user', async (req, res) => {
     }
 });
 
+router.delete('/user/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    if(!id) return res.status(400).send('User not found');
+
+    try {
+        const result = await userRepo.delete(id);
+        if(result.affected === 0) res.status(400).send(`User not found`);
+        res.status(200).send('User deleted successfully');
+    } catch (error) {
+        res.status(500).send(`Failed to delete user`);
+    }
+});
+
 // export default router;
