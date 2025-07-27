@@ -39,4 +39,22 @@ router.delete('/user/:id', async (req, res) => {
     }
 });
 
-// export default router;
+router.put('/user/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    const {firstName, lastName, age} = req.body;
+
+    if(!id) return res.status(400).send('Invalid ID');
+
+    try {
+        const userToUpdate = await userRepo.findOneBy({id: id});
+        if(!userToUpdate) res.status(400).send(`User not found`);
+        userToUpdate.firstName = firstName;
+        userToUpdate.lastName = lastName;
+        userToUpdate.age = age;
+
+        const updatedUser = await userRepo.save(userToUpdate);
+        res.status(200).send(updatedUser);
+    } catch (error) {
+        res.status(500).send(`Failed to delete user`);
+    }
+});
