@@ -6,12 +6,12 @@ export const router = Router();
 
 const userRepo = AppDataSource.getRepository(User);
 
-router.get('/student', async (req, res) => {
+router.get('/user', async (req, res) => {
     const users = await userRepo.find();
     res.send(users);
 });
 
-router.post('/student', async (req, res) => {
+router.post('/user', async (req, res) => {
     const {firstName, lastName, age} = req.body;
     const user = new User();
     user.firstName = firstName;
