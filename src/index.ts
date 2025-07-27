@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { AppDataSource } from "./data-source";
-import { router as studentRouter } from "./routes/Student";
+import { router as studentRouter } from "./routes/User";
 import express from "express";
 
 const app = express();
